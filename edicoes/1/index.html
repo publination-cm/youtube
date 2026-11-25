@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Criadoras em Pauta #1</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap">
+<style>
+/* Visual da plataforma Bandof: creme, preto, vermelho, Roboto 900, pílulas, seções alternadas. Conteúdo = insights da semana do grupo de Avisos, em módulos interativos. */
+:root{
+  --cream:#FBF9F4; --white:#FFFFFF; --grey:#F2F2F2; --dark:#0F0F0F; --dark2:#1C1C1C;
+  --ink:#0F0F0F; --ink2:#606060; --line:#DDDDDD; --red:#FF0000; --red-soft:#FFE5E5;
+  --green:#74DF98; --green-bg:#173E25; --on-dark:#FFFFFF; --on-dark2:#AAAAAA;
+  --font:"Roboto", Arial, sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+img{max-width:100%}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--white);z-index:30}
+h1,h2,h3{margin:0;font-weight:900;line-height:1.04;letter-spacing:-.02em;text-wrap:balance}
+h1{font-size:clamp(2.6rem,10vw,4.5rem)}
+h2{font-size:clamp(1.9rem,7vw,2.8rem)}
+h3{font-size:1.25rem;letter-spacing:-.01em}
+p{margin:0}
+.r{color:var(--red)}
+.in{max-width:880px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px;border-radius:12px}
+.emo{width:1.25em;height:1.25em;vertical-align:-.28em;display:inline-block}
+
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav .in{display:flex;align-items:center;justify-content:space-between;gap:12px;height:58px}
+.brand{font-weight:900;font-size:1rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.brand small{font-weight:500;color:var(--ink2);font-size:.8rem}
+.navbtn{border:1px solid var(--line);background:var(--white);border-radius:999px;padding:8px 16px;font-weight:700;font-size:.85rem;text-decoration:none;color:var(--ink);white-space:nowrap}
+.bar i{display:block;height:3px;width:0;background:var(--red)}
+
+.pill{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:7px 14px;font-size:.84rem;font-weight:700;width:fit-content}
+.pill.soft{background:var(--red-soft);color:#CC0000}
+.pill.soft.dot::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--red)}
+.pill.line{border:1px solid var(--line);background:var(--white);color:var(--ink);font-weight:500}
+.pill.red{background:var(--red);color:#fff}
+.pill.green{background:var(--green-bg);color:var(--green)}
+.kick{font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+section{padding-block:72px;scroll-margin-top:62px}
+.stack{display:flex;flex-direction:column;gap:22px}
+.dark{background:var(--dark);color:var(--on-dark)}
+.dark .sub,.dark .muted{color:var(--on-dark2)}
+.greyb{background:var(--grey)}
+.sub{color:var(--ink2);font-size:1.05rem;max-width:46ch}
+.muted{color:var(--ink2)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--red);color:#fff;border:0;border-radius:999px;padding:14px 22px;font-weight:700;text-decoration:none;width:fit-content}
+.btn svg{width:14px;height:14px;fill:#fff}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding-block:64px 64px}
+.hero::after{content:"";position:absolute;right:-180px;top:-120px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(255,0,0,.16),rgba(0,0,0,0) 65%);pointer-events:none}
+
+/* aviso sobre pontos */
+.note{display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start;font-size:1rem;max-width:58ch;color:var(--ink)}
+.note::before{content:"i";width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;font-weight:900;font-size:.85rem;display:grid;place-items:center;font-style:normal}
+.dark .note{color:#fff}.dark .note::before{background:#fff;color:var(--ink)}
+.note-s{font-size:.88rem;color:var(--ink2);display:flex;gap:8px;align-items:baseline}
+.note-s::before{content:"i";flex:0 0 18px;height:18px;border-radius:50%;background:var(--ink2);color:#fff;font-weight:900;font-size:.68rem;display:grid;place-items:center;transform:translateY(3px)}
+.dark .note-s{color:var(--on-dark2)}.dark .note-s::before{background:var(--on-dark2);color:var(--dark)}
+
+/* sumário da semana */
+.toc{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.toc a{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;text-decoration:none;color:var(--ink);padding:14px 6px;border-radius:16px;transition:background .2s}
+.toc a:hover{background:var(--white)}
+.toc .ic{width:62px;height:62px;border-radius:50%;background:var(--red-soft);display:grid;place-items:center}
+.toc .ic .emo{width:36px;height:36px;vertical-align:0}
+.toc b{font-size:.9rem;line-height:1.2}
+.toc small{font-size:.72rem;color:var(--ink2);font-weight:700;letter-spacing:.06em}
+
+/* etapas tocáveis (passo a passo) */
+.path{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.crumb{border:1.5px solid rgba(255,255,255,.25);background:transparent;color:inherit;border-radius:999px;padding:9px 14px;font-weight:700;font-size:.9rem}
+.crumb.done{background:var(--red);border-color:var(--red)}
+.arrow{color:var(--on-dark2)}
+.pathnote{min-height:1.6em;font-size:1rem}
+
+/* linha do tempo do trailer */
+.tl{display:flex;flex-direction:column;gap:4px}
+.tlbar{display:flex;height:14px;border-radius:999px;overflow:hidden;gap:3px}
+.tlbar button{border:0;padding:0;background:#3A3A3A;transition:background .2s}
+.tlbar button[aria-pressed="true"]{background:var(--red)}
+.tlticks{display:flex;justify-content:space-between;font-size:.75rem;color:var(--on-dark2)}
+.tlread{min-height:4.4em;display:flex;flex-direction:column;gap:4px}
+.tlread b{font-size:1.2rem}
+
+/* ganchos */
+.tabs{display:flex;flex-wrap:wrap;gap:8px}
+.tab{border:1.5px solid var(--line);background:var(--white);border-radius:999px;padding:10px 16px;font-weight:700;font-size:.9rem}
+.tab[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.quote{font-size:clamp(1.5rem,5.5vw,2.2rem);font-weight:900;line-height:1.15;min-height:2.4em}
+.quote::before{content:"“";color:var(--red)}
+.quote::after{content:"”";color:var(--red)}
+.vs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
+.vs p{font-size:1.05rem}
+.no{color:var(--ink2);text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:2px}
+.yes{font-weight:700}
+
+/* quiz */
+.situ{font-size:clamp(1.25rem,4.5vw,1.6rem);font-weight:900;line-height:1.2;min-height:2.5em}
+.opts{display:flex;flex-direction:column;gap:10px;max-width:480px}
+.opt{border:1.5px solid var(--line);background:var(--white);border-radius:999px;padding:14px 20px;text-align:left;font-weight:500}
+.opt:hover{border-color:var(--ink)}
+.opt.ok{background:var(--green-bg);border-color:var(--green-bg);color:var(--green)}
+.opt.nok{border-color:var(--red);color:var(--red)}
+.fb{min-height:1.6em;font-weight:700}
+.qfoot{display:flex;align-items:center;justify-content:space-between;max-width:480px}
+.dots{display:flex;gap:6px}.dots i{width:24px;height:6px;border-radius:3px;background:var(--line)}.dots i.on{background:var(--red)}
+.next{background:none;border:0;font-weight:900;color:var(--red);padding:8px 0}.next[disabled]{opacity:.3;cursor:default}
+
+/* estreia x live */
+.switch{display:inline-flex;background:#2A2A2A;border-radius:999px;padding:4px;gap:4px;width:fit-content}
+.switch button{border:0;background:transparent;color:var(--on-dark2);border-radius:999px;padding:10px 20px;font-weight:900}
+.switch button[aria-pressed="true"]{background:var(--red);color:#fff}
+.steps{list-style:none;margin:0;padding:0;counter-reset:s;display:flex;flex-direction:column;gap:12px}
+.steps li{counter-increment:s;display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start}
+.steps li::before{content:counter(s);width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--red);color:#fff;font-weight:900;font-size:.85rem}
+.ideas{display:flex;flex-wrap:wrap;gap:8px}
+.idea{border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;border-radius:999px;padding:8px 14px;font-size:.9rem}
+.idea[aria-pressed="true"]{background:#fff;color:var(--ink)}
+.picked{min-height:1.5em;color:var(--on-dark2)}
+
+/* bolinhas (aula 4) */
+.vtab{border:1px solid rgba(255,255,255,.18);background:transparent;color:var(--on-dark);border-radius:999px;padding:10px 16px;font-weight:700;font-size:.9rem}
+.vtab[aria-pressed="true"]{background:var(--red);border-color:var(--red)}
+.viz{display:grid;grid-template-columns:repeat(20,1fr);gap:6px;max-width:520px}
+.viz i{aspect-ratio:1;border-radius:50%;background:#2E2E2E;transition:background .35s,transform .35s}
+.viz i.on{background:#5A5A5A}
+.viz i.hot{background:var(--red);transform:scale(1.15)}
+.viz i.s1{background:var(--red)} .viz i.s2{background:#FF8A8A} .viz i.s3{background:#FFFFFF}
+.big{font-size:clamp(3rem,14vw,5rem);font-weight:900;line-height:1}
+.readout{display:flex;flex-direction:column;gap:6px;min-height:150px}
+.readout p{font-size:1.1rem;max-width:36ch}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.85rem;color:var(--on-dark2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:50%;display:inline-block}
+@media (max-width:520px){.viz{gap:4px}}
+
+/* links */
+.links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.links a{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.links a b{font-weight:700;font-size:1.02rem}
+.links a>span{color:var(--ink)}
+.links a>span>span{font-size:.88rem;color:var(--ink2)}
+.links a::after{content:"↗";color:var(--red);font-weight:900}
+.links a:hover b{color:var(--red)}
+
+/* aulas */
+.aulas{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.aulas label{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.12);cursor:pointer}
+.aulas small{margin-left:auto}
+
+/* checklist + anel */
+.chal{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
+.ring{width:124px;height:124px}
+.ring circle{fill:none;stroke-width:12}
+.ring .bg{stroke:var(--line)} .ring .fg{stroke:var(--red);stroke-linecap:round;transition:stroke-dashoffset .4s;transform:rotate(-90deg);transform-origin:50% 50%}
+.ring text{font-family:var(--font);font-weight:900;font-size:22px;fill:var(--ink)}
+.checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.checks label,.aulas label{font-weight:500}
+.checks label{display:flex;gap:14px;align-items:center;padding:10px 0;cursor:pointer}
+input.ck{appearance:none;flex:0 0 28px;height:28px;border:2px solid #AAAAAA;border-radius:50%;margin:0;display:grid;place-items:center;cursor:pointer;background:transparent}
+input.ck:checked{background:var(--red);border-color:var(--red)}
+input.ck:checked::after{content:"";width:7px;height:12px;border:solid #fff;border-width:0 3px 3px 0;transform:translateY(-2px) rotate(45deg)}
+.checks input.ck:checked+span{color:var(--ink2);text-decoration:line-through}
+.pts{margin-left:auto;font-weight:900;color:var(--red);font-size:.85rem;white-space:nowrap}
+.done{font-weight:900;color:#1E8E4A;min-height:1.5em}
+
+footer{padding-block:44px;font-size:.92rem;color:var(--ink2)}
+footer .in{display:flex;flex-direction:column;gap:12px}
+footer a{color:var(--ink);font-weight:700}
+@media (max-width:560px){.toc{grid-template-columns:repeat(2,minmax(0,1fr))}.vs{grid-template-columns:1fr}.chal{grid-template-columns:1fr;justify-items:start}.brand small{display:none}}
+@media (min-width:820px){.vizwrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:40px;align-items:center}.viz{max-width:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="in">
+    <span class="brand"><span>Criadoras <span class="r">em Pauta</span></span><small>Female Creators Acceleration Program</small></span>
+    <a class="navbtn" href="https://program.bandof.com/youtube-female-creators-guia" target="_blank" rel="noopener">Ver guia</a>
+  </div>
+  <div class="bar" aria-hidden="true"><i id="prog"></i></div>
+</nav>
+
+<section class="hero">
+  <div class="in stack">
+    <span class="pill soft dot">Newsletter do programa · Edição #1 · 23 a 27/11</span>
+    <h1>Sua dose semanal<br><span class="r">de YouTube</span></h1>
+    <p class="sub">Primeira vez lendo uma newsletter? É simples: toda semana a gente junta aqui as dicas do grupo de Avisos, num lugar só, pra você explorar no seu tempo.</p>
+    <p class="note"><span><b>Os pontos que aparecem aqui são só pra você saber quanto vale cada tarefa.</b> Marcar ou tocar nesta newsletter não soma nada no seu placar. Os pontos entram quando você faz a tarefa no YouTube, e você acompanha tudo no app Bandof.</span></p>
+    <div class="chips">
+      <span class="pill line"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Calendar/3D/calendar_3d.png" alt=""> Toda semana</span>
+      <span class="pill line"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Stopwatch/3D/stopwatch_3d.png" alt=""> 5 minutos</span>
+      <span class="pill line"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Mobile%20phone/3D/mobile_phone_3d.png" alt=""> Toque pra explorar</span>
+    </div>
+  </div>
+</section>
+
+<section class="greyb" style="padding-block:40px">
+  <div class="in stack" style="gap:14px">
+    <span class="kick">Nesta edição</span>
+    <nav class="toc" aria-label="Temas da semana">
+      <a href="#trailer"><span class="ic"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Bullseye/3D/bullseye_3d.png" alt=""></span><small>24/11</small><b>Trailer do canal</b></a>
+      <a href="#gancho"><span class="ic"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Fire/3D/fire_3d.png" alt=""></span><small>25/11</small><b>Gancho</b></a>
+      <a href="#estreia"><span class="ic"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Party%20popper/3D/party_popper_3d.png" alt=""></span><small>26/11</small><b>Estreia ou Live</b></a>
+      <a href="#links"><span class="ic"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Books/3D/books_3d.png" alt=""></span><small>23/11</small><b>Links úteis</b></a>
+    </nav>
+  </div>
+</section>
+
+<!-- TRAILER -->
+<section class="dark" id="trailer">
+  <div class="in stack">
+    <span class="kick">Dica 1 · Trailer do canal</span>
+    <h2>Seu cartão de visitas<br><span class="r">no YouTube</span></h2>
+    <p class="sub">O trailer aparece no topo do canal só pra quem ainda não é inscrito. Não passa anúncio e, depois de assistido, não aparece mais pra pessoa.</p>
+
+    <h3>Monte o seu em até 1 minuto</h3>
+    <p class="muted">Toque em cada parte da linha do tempo:</p>
+    <div class="tl">
+      <div class="tlbar" id="tlbar" role="group" aria-label="Partes do trailer">
+        <button style="flex:2" data-i="0" aria-pressed="true" aria-label="Gancho"></button>
+        <button style="flex:2" data-i="1" aria-pressed="false" aria-label="Quem é você"></button>
+        <button style="flex:3" data-i="2" aria-pressed="false" aria-label="Sobre o canal"></button>
+        <button style="flex:1.5" data-i="3" aria-pressed="false" aria-label="Frequência"></button>
+        <button style="flex:1.5" data-i="4" aria-pressed="false" aria-label="Convite"></button>
+      </div>
+      <div class="tlticks"><span>0s</span><span>30s</span><span>1min</span></div>
+    </div>
+    <div class="tlread" aria-live="polite"><b id="tlt"></b><span id="tld" class="muted"></span></div>
+    <p class="muted"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Thought%20balloon/3D/thought_balloon_3d.png" alt=""> Não precisa gravar do zero: dá pra usar um vídeo longo que já represente bem você.</p>
+
+    <h3>Coloque no canal (pelo computador)</h3>
+    <p class="muted">Toque em cada etapa conforme for fazendo:</p>
+    <div class="path" id="path">
+      <button class="crumb">YouTube Studio</button><span class="arrow">›</span>
+      <button class="crumb">Personalização</button><span class="arrow">›</span>
+      <button class="crumb">Página inicial</button><span class="arrow">›</span>
+      <button class="crumb">Adicionar seção</button><span class="arrow">›</span>
+      <button class="crumb">Trailer do canal</button><span class="arrow">›</span>
+      <button class="crumb">Publicar</button>
+    </div>
+    <p class="pathnote" id="pathnote"></p>
+    <div class="chips"><span class="pill red"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Trophy/3D/trophy_3d.png" alt=""> Desafio Canal Pronto vale 100 pts</span></div>
+    <p class="muted" style="font-size:.92rem">Foto, banner, descrição e trailer completam o desafio.</p>
+    <p class="note-s"><span>Valor de referência. Marcar as etapas aqui não soma pontos: eles entram quando o seu canal estiver pronto no YouTube.</span></p>
+  </div>
+</section>
+
+<!-- GANCHO -->
+<section id="gancho">
+  <div class="in stack">
+    <span class="kick">Dica 2 · Gancho</span>
+    <h2>Os primeiros segundos<br><span class="r">decidem tudo</span></h2>
+    <p class="sub">Gancho é a frase, pergunta ou cena do começo que faz a pessoa querer ficar. Quanto mais tempo assistem, mais o YouTube mostra seu vídeo pra mais gente.</p>
+    <div class="tabs" id="htabs" role="group" aria-label="Tipos de gancho">
+      <button class="tab" data-k="0" aria-pressed="true">Pergunta</button>
+      <button class="tab" data-k="1" aria-pressed="false">Curiosidade</button>
+      <button class="tab" data-k="2" aria-pressed="false">Promessa</button>
+      <button class="tab" data-k="3" aria-pressed="false">Resultado primeiro</button>
+    </div>
+    <p class="quote" id="hquote" aria-live="polite"></p>
+    <div class="vs">
+      <div class="stack" style="gap:8px"><span class="kick" style="color:var(--ink2)">Evite</span><p class="no">"Oi gente, tudo bem? Hoje eu vou..."</p></div>
+      <div class="stack" style="gap:8px"><span class="kick">Prefira</span><p class="yes">Vá direto ao ponto e guarde a apresentação pra depois do gancho.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="greyb">
+  <div class="in stack">
+    <span class="kick">Teste rápido</span>
+    <h3 style="font-size:1.6rem">Qual é o melhor começo?</h3>
+    <p class="situ" id="situ" aria-live="polite"></p>
+    <div class="opts" id="opts"></div>
+    <p class="fb" id="fb"></p>
+    <div class="qfoot"><div class="dots" id="dots"></div><button class="next" id="next" disabled>Próxima →</button></div>
+  </div>
+</section>
+
+<!-- ESTREIA OU LIVE -->
+<section class="dark" id="estreia">
+  <div class="in stack">
+    <span class="kick">Dica 3 · Fim de ano</span>
+    <h2>Estreia ou Live<br><span class="r">vale 100 pontos</span></h2>
+    <p class="sub">A janela abre na Black Friday e vai até as festas de fim de ano. Vale uma vez. Escolha a sua:</p>
+    <p class="note-s"><span>Os pontos entram quando você fizer a Estreia ou Live no YouTube, não ao escolher aqui.</span></p>
+    <div class="switch" id="sw" role="group" aria-label="Escolha o formato">
+      <button data-k="e" aria-pressed="true">Estreia</button>
+      <button data-k="l" aria-pressed="false">Live</button>
+    </div>
+    <div id="swE" class="stack" style="gap:14px">
+      <p>Seu vídeo gravado vira um evento, com contagem regressiva e chat ao vivo pra conversar com o público enquanto ele assiste.</p>
+      <ol class="steps">
+        <li><span>YouTube Studio › <b>Criar</b> › <b>Enviar vídeos</b></span></li>
+        <li><span>Em <b>Visibilidade</b>, escolha <b>Programar</b></span></li>
+        <li><span>Marque <b>Definir como Estreia</b> e escolha data e hora</span></li>
+      </ol>
+    </div>
+    <div id="swL" class="stack" style="gap:14px" hidden>
+      <p>Você ao vivo com o seu público, respondendo no chat na hora.</p>
+      <ol class="steps">
+        <li><span>Pelo <b>celular</b>: precisa de 50 inscritos</span></li>
+        <li><span>Pelo <b>computador</b>: ative a transmissão ao vivo 24 horas antes (só na primeira vez)</span></li>
+      </ol>
+    </div>
+    <h3>Sem ideia de tema? Toque numa:</h3>
+    <div class="ideas" id="ideas">
+      <button class="idea" aria-pressed="false">Retrospectiva do ano</button>
+      <button class="idea" aria-pressed="false">Favoritos de 2026</button>
+      <button class="idea" aria-pressed="false">Metas para 2027</button>
+      <button class="idea" aria-pressed="false">Achadinhos de Black Friday</button>
+      <button class="idea" aria-pressed="false">Ideias de presente de Natal</button>
+    </div>
+    <p class="picked" id="picked"></p>
+  </div>
+</section>
+
+<!-- LINKS -->
+<section id="links">
+  <div class="in stack">
+    <span class="kick">Dica 4 · Links úteis</span>
+    <h2>Salve pra<br><span class="r">consultar sempre</span></h2>
+    <ul class="links">
+      <li><a href="https://studio.youtube.com" target="_blank" rel="noopener"><span><b>YouTube Studio</b><br><span>Onde você edita, analisa e configura tudo</span></span></a></li>
+      <li><a href="https://support.google.com/youtube/?hl=pt-BR" target="_blank" rel="noopener"><span><b>Central de Ajuda</b><br><span>Busque qualquer dúvida</span></span></a></li>
+      <li><a href="https://support.google.com/youtube/community?hl=pt-BR" target="_blank" rel="noopener"><span><b>Comunidade de Ajuda</b><br><span>Fórum com criadores e especialistas</span></span></a></li>
+      <li><a href="https://www.youtube.com/intl/pt-BR/creators/" target="_blank" rel="noopener"><span><b>YouTube Criadores</b><br><span>Dicas, guias e novidades oficiais</span></span></a></li>
+      <li><a href="https://www.youtube.com/intl/pt-BR/creators/how-things-work/getting-started/" target="_blank" rel="noopener"><span><b>Primeiros passos</b><br><span>Pra começar do jeito certo</span></span></a></li>
+      <li><a href="https://www.youtube.com/verify" target="_blank" rel="noopener"><span><b>Ativar recursos avançados</b><br><span>Necessário pro teste A/B de título e miniatura</span></span></a></li>
+      <li><a href="https://support.google.com/youtube/answer/72851?hl=pt-BR" target="_blank" rel="noopener"><span><b>Requisitos do Programa de Parcerias</b><br><span>O que precisa pra monetizar</span></span></a></li>
+      <li><a href="https://www.youtube.com/intl/pt-BR/creators/partner-program/shopping" target="_blank" rel="noopener"><span><b>YouTube Shopping</b><br><span>Como funciona pra criadores</span></span></a></li>
+      <li><a href="https://blog.youtube/intl/pt-br/" target="_blank" rel="noopener"><span><b>Blog do YouTube Brasil</b><br><span>Lançamentos e novidades</span></span></a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- AULAS -->
+<section class="dark" id="aula">
+  <div class="in stack">
+    <span class="pill green">● Aula 4 disponível</span>
+    <h2>Aula nova:<br><span class="r">YouTube Analytics</span></h2>
+    <p class="sub">Um gostinho do tema. Cada bolinha é uma pessoa. Toque nas etapas:</p>
+    <div class="tabs" role="group" aria-label="Etapas">
+      <button class="vtab" data-k="imp" aria-pressed="true">1. Viram</button>
+      <button class="vtab" data-k="ctr" aria-pressed="false">2. Clicaram</button>
+      <button class="vtab" data-k="ret" aria-pressed="false">3. Ficaram</button>
+      <button class="vtab" data-k="src" aria-pressed="false">4. De onde vieram</button>
+    </div>
+    <div class="vizwrap">
+    <div class="viz" id="viz" aria-hidden="true"></div>
+    <div class="readout" aria-live="polite">
+      <span class="big r" id="num">200</span>
+      <p id="txt"></p>
+      <div class="legend" id="leg" hidden>
+        <span><i style="background:var(--red)"></i>Shorts</span>
+        <span><i style="background:#FF8A8A"></i>Busca</span>
+        <span><i style="background:#fff"></i>Sugeridos</span>
+      </div>
+      <p class="muted" id="where"></p>
+    </div>
+    </div>
+    <p class="muted" style="font-size:.9rem">Números de exemplo. Os seus ficam no YouTube Studio, em <b style="color:#fff">Análises</b>. Na aula, o time do YouTube mostra como ler cada um.</p>
+    <h3 style="margin-top:12px">Já assistiu às masterclasses?</h3>
+    <p class="sub">Cada aula concluída vale 50 pontos no programa. Marque aqui as que você já viu, só pra se organizar:</p>
+    <p class="note-s"><span>Marcar aqui não soma pontos. Eles contam quando você conclui a aula, e aparecem no app Bandof.</span></p>
+    <ul class="aulas" id="aulas">
+      <li><label><input class="ck" type="checkbox" id="a1"><span>1. Construa um canal de sucesso</span><small class="pts">vale 50 pts</small></label></li>
+      <li><label><input class="ck" type="checkbox" id="a2"><span>2. Monetizando seu canal</span><small class="pts">vale 50 pts</small></label></li>
+      <li><label><input class="ck" type="checkbox" id="a3"><span>3. YouTube Shopping</span><small class="pts">vale 50 pts</small></label></li>
+      <li><label><input class="ck" type="checkbox" id="a4"><span>4. YouTube Analytics e Mensuração <span class="pill soft" style="padding:3px 10px;font-size:.72rem">Nova</span></span><small class="pts">vale 50 pts</small></label></li>
+    </ul>
+    <p id="aulasum" class="muted"></p>
+    <a class="btn" href="https://eventsonair.withyoutube.com/events/aprendacomoyoutube-br-2026" target="_blank" rel="noopener"><svg viewBox="0 0 10 12" aria-hidden="true"><path d="M0 0l10 6-10 6z"/></svg>Assistir às aulas</a>
+  </div>
+</section>
+
+<!-- DESAFIO -->
+<section id="missoes">
+  <div class="in stack">
+    <span class="kick">Missões da semana</span>
+    <h2>Sua lista<br><span class="r">da semana</span></h2>
+    <p class="note"><span><b>Os pontos que aparecem aqui são só pra você saber quanto vale cada tarefa.</b> Marcar ou tocar nesta newsletter não soma nada no seu placar. Os pontos entram quando você faz a tarefa no YouTube, e você acompanha tudo no app Bandof.</span></p>
+    <div class="chal">
+      <svg class="ring" viewBox="0 0 120 120" role="img" aria-label="Progresso das missões">
+        <circle class="bg" cx="60" cy="60" r="50"/>
+        <circle class="fg" id="ringfg" cx="60" cy="60" r="50" stroke-dasharray="314.16" stroke-dashoffset="314.16"/>
+        <text id="ringtx" x="60" y="68" text-anchor="middle">0/4</text>
+      </svg>
+      <ul class="checks" id="checks">
+        <li><label><input class="ck" type="checkbox" id="m1"><span>Colocar o trailer no canal</span><small class="pts">parte do Canal Pronto</small></label></li>
+        <li><label><input class="ck" type="checkbox" id="m2"><span>Escrever o gancho do próximo vídeo</span></label></li>
+        <li><label><input class="ck" type="checkbox" id="m3"><span>Planejar minha Estreia ou Live</span><small class="pts">vale 100 pts</small></label></li>
+        <li><label><input class="ck" type="checkbox" id="m4"><span>Assistir à aula 4</span><small class="pts">vale 50 pts</small></label></li>
+      </ul>
+    </div>
+    <p class="done" id="done"></p>
+  </div>
+</section>
+
+<footer>
+  <div class="in">
+    <span class="pill soft">Lembrete: #YouTubeFemaleCreators na descrição, sempre</span>
+    <p>Sem a hashtag, o vídeo não conta ponto. Dúvidas? Veja o <a href="https://program.bandof.com/youtube-female-creators-guia" target="_blank" rel="noopener">guia do programa</a> ou chame a gente no bate-papo.</p>
+    <p>Até a próxima edição! <img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Red%20heart/3D/red_heart_3d.png" alt=""></p>
+    <p style="font-size:.8rem">Pra melhorar a newsletter, registramos de forma anônima como ela é usada (toques e respostas). Não coletamos nome, e-mail nem telefone.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var EM={check:'https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Check%20mark%20button/3D/check_mark_button_3d.png',party:'https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Party%20popper/3D/party_popper_3d.png',hour:'https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Hourglass%20not%20done/3D/hourglass_not_done_3d.png'};
+  function em(k){return '<img class="emo" alt="" src="'+EM[k]+'">';}
+  function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k)||'{}');localStorage.setItem(k,JSON.stringify(v));}catch(e){return {};}}
+
+  var prog=document.getElementById('prog');
+  function sc(){var h=document.documentElement,m=h.scrollHeight-h.clientHeight;prog.style.width=(m>0?Math.min(100,h.scrollTop/m*100):0)+'%';}
+  addEventListener('scroll',sc,{passive:true});sc();
+
+  // trailer: linha do tempo
+  var TL=[
+    ['Gancho','Comece direto no ponto, sem "oi gente".'],
+    ['Quem é você','Seu nome e o que você faz, em uma frase.'],
+    ['Sobre o que é o canal','Os assuntos que a pessoa vai encontrar por aqui.'],
+    ['Frequência','Quando sai vídeo novo. Ex.: toda terça e quinta.'],
+    ['Convite','"Se inscreve pra não perder o próximo!"']
+  ];
+  var tlb=[].slice.call(document.querySelectorAll('#tlbar button'));
+  function tl(i){tlb.forEach(function(b,k){b.setAttribute('aria-pressed',k===i?'true':'false');});document.getElementById('tlt').textContent=(i+1)+'. '+TL[i][0];document.getElementById('tld').textContent=TL[i][1];}
+  tlb.forEach(function(b){b.addEventListener('click',function(){tl(+b.dataset.i);});});tl(0);
+
+  // trailer: caminho no Studio
+  var cr=[].slice.call(document.querySelectorAll('#path .crumb')),pn=document.getElementById('pathnote');
+  cr.forEach(function(b,i){b.addEventListener('click',function(){cr.forEach(function(x,k){x.classList.toggle('done',k<=i);});
+    pn.innerHTML=i===cr.length-1?em('party')+' Trailer publicado! Um passo a menos pro Canal Pronto.':'Etapa '+(i+1)+' de '+cr.length+'. Próxima: <b>'+cr[i+1].textContent+'</b>';});});
+
+  // ganchos
+  var H=['Você também sente que nunca sabe o que vestir?','Eu não esperava que isso fosse dar tão certo...','Nesse vídeo eu vou te mostrar 3 jeitos de...','(mostre o antes e depois logo de cara)'];
+  var ht=[].slice.call(document.querySelectorAll('#htabs .tab')),hq=document.getElementById('hquote');
+  function hk(k){ht.forEach(function(b){b.setAttribute('aria-pressed',+b.dataset.k===k?'true':'false');});hq.textContent=H[k];}
+  ht.forEach(function(b){b.addEventListener('click',function(){hk(+b.dataset.k);});});hk(0);
+
+  // quiz de gancho
+  var Q=[
+    {s:'Vídeo de skincare. Qual começo segura mais?',o:['"Oi gente, tudo bem? Hoje eu vou falar de pele..."','"Esse produto de 20 reais mudou minha pele em uma semana."','"Antes de começar, já se inscreve no canal!"'],r:1,f:'Isso! Curiosidade e resultado logo de cara.'},
+    {s:'Vídeo de receita. Qual começo segura mais?',o:['Mostrar o bolo pronto sendo cortado','Contar a história da receita','Listar todos os ingredientes'],r:0,f:'Boa! Resultado primeiro: a pessoa fica pra ver como chegar lá.'},
+    {s:'Vídeo de dicas de viagem. Qual começo segura mais?',o:['"Bom dia, pessoal!"','"Hoje o vídeo vai ser longo..."','"3 erros que fazem você gastar o dobro na viagem."'],r:2,f:'Exato! Promessa clara do que a pessoa vai ganhar.'}
+  ];
+  var i=0,situ=document.getElementById('situ'),opts=document.getElementById('opts'),fb=document.getElementById('fb'),next=document.getElementById('next'),dots=document.getElementById('dots');
+  Q.forEach(function(){dots.appendChild(document.createElement('i'));});
+  function render(){var q=Q[i];situ.textContent=q.s;fb.textContent='';opts.innerHTML='';next.disabled=true;next.textContent=i<Q.length-1?'Próxima →':'Recomeçar ↺';
+    [].forEach.call(dots.children,function(d,k){d.className=k<=i?'on':'';});
+    q.o.forEach(function(t,k){var b=document.createElement('button');b.className='opt';b.textContent=t;b.addEventListener('click',function(){
+      if(k===q.r){b.className='opt ok';fb.innerHTML=em('check')+' '+q.f;fb.style.color='#1E8E4A';next.disabled=false;[].forEach.call(opts.children,function(x){x.disabled=true;});}
+      else{b.className='opt nok';fb.textContent='Quase! Tenta outra.';fb.style.color='var(--red)';}
+    });opts.appendChild(b);});}
+  next.addEventListener('click',function(){i=(i+1)%Q.length;render();});render();
+
+  // estreia x live
+  var sw=[].slice.call(document.querySelectorAll('#sw button'));
+  sw.forEach(function(b){b.addEventListener('click',function(){sw.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});document.getElementById('swE').hidden=b.dataset.k!=='e';document.getElementById('swL').hidden=b.dataset.k!=='l';});});
+  var ideas=[].slice.call(document.querySelectorAll('#ideas .idea')),pk=document.getElementById('picked');
+  ideas.forEach(function(b){b.addEventListener('click',function(){ideas.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});pk.innerHTML=em('hour')+' Anotado: <b style="color:#fff">'+b.textContent+'</b>. Conta no bate-papo qual vai ser a sua!';});});
+
+  // bolinhas da aula 4
+  var viz=document.getElementById('viz');for(var n=0;n<200;n++)viz.appendChild(document.createElement('i'));
+  var D=[].slice.call(viz.children);
+  var click=[3,17,42,58,77,91,104,123,139,150,166,171,183,190,9,64], stay=[3,42,58,91,123,150,171,190,64,104];
+  var V={
+    imp:['200','pessoas viram a sua miniatura. Isso são as impressões: o tamanho da sua vitrine.',''],
+    ctr:['8%','clicaram. Essa é a taxa de cliques. Quem decide aqui é o título e a miniatura.','Pouca gente clicando? Teste outra capa ou outro título.'],
+    ret:['10','assistiram até a metade. Isso é a retenção. Quem decide aqui é o gancho.','Muita gente saindo no começo? Volte na dica do gancho!'],
+    src:['3','caminhos trouxeram essas pessoas. São as fontes de tráfego.','Muita gente vindo da busca? Capriche nas palavras do título.']
+  };
+  var vt=[].slice.call(document.querySelectorAll('.vtab'));
+  function vshow(k){vt.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.k===k?'true':'false');});
+    D.forEach(function(d){d.className=k==='imp'?'on':'';});
+    if(k==='ctr')click.forEach(function(x){D[x].className='hot';});
+    if(k==='ret'){click.forEach(function(x){D[x].className='on';});stay.forEach(function(x){D[x].className='hot';});}
+    if(k==='src')click.forEach(function(x,j){D[x].className=j<7?'s1':(j<12?'s2':'s3');});
+    document.getElementById('num').textContent=V[k][0];document.getElementById('txt').textContent=V[k][1];document.getElementById('where').textContent=V[k][2];document.getElementById('leg').hidden=k!=='src';}
+  vt.forEach(function(b){b.addEventListener('click',function(){vshow(b.dataset.k);});});vshow('imp');
+
+  // aulas + missões (salvas no aparelho de quem lê)
+  var S=store('cep1');
+  function bind(sel,cb){var bx=[].slice.call(document.querySelectorAll(sel));bx.forEach(function(b){b.checked=!!S[b.id];b.addEventListener('change',function(){S[b.id]=b.checked;store('cep1',S);cb(bx);});});cb(bx);}
+  bind('#aulas input',function(bx){var c=bx.filter(function(b){return b.checked;}).length;document.getElementById('aulasum').textContent=c?('Você marcou '+c+' de '+bx.length+' aulas. Confira seus pontos no app Bandof.'):'';});
+  bind('#checks input',function(bx){var c=bx.filter(function(b){return b.checked;}).length;document.getElementById('ringfg').style.strokeDashoffset=314.16*(1-c/bx.length);document.getElementById('ringtx').textContent=c+'/'+bx.length;document.getElementById('done').innerHTML=c===bx.length?em('party')+' Lista completa! Agora é só acompanhar seus pontos no app Bandof.':'';});
+})();
+</script>
+
+<script>
+/* Medição anônima: cada ação vira uma linha na planilha "Criadoras em Pauta | Respostas da newsletter".
+   Cole em ENDPOINT o link do App da Web do Apps Script. Vazio = não envia nada. */
+(function(){
+  var ENDPOINT='https://script.google.com/macros/s/AKfycbxtyJKXv4dnJlpNYkjZIt2sFuD5DEITcFADBlMcWBckOlY4K01gNmLofcbxPUEA6q9jxQ/exec';
+  var ED='#1';
+  if(!ENDPOINT) return;
+  var uid='';try{uid=localStorage.getItem('cep_uid')||'';if(!uid){uid='L'+Math.random().toString(36).slice(2,10);localStorage.setItem('cep_uid',uid);}}catch(e){uid='L'+Math.random().toString(36).slice(2,10);}
+  var dev=/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)?'Celular':'Computador';
+  var Q=[];
+  function log(sec,act,det,res,ok,tr){Q.push({ed:ED,uid:uid,sec:sec,act:act,det:det||'',res:res||'',ok:ok||'',try:tr||'',dev:dev});}
+  function flush(){if(!Q.length)return;var body=JSON.stringify({events:Q.splice(0)});try{fetch(ENDPOINT,{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'text/plain;charset=utf-8'},body:body});}catch(e){}}
+  setInterval(flush,5000);
+  addEventListener('pagehide',flush);document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')flush();});
+
+  log('Geral','abriu');
+  var marks=[25,50,75,100],hit={};
+  addEventListener('scroll',function(){var d=document.documentElement,m=d.scrollHeight-d.clientHeight;var pc=m>0?d.scrollTop/m*100:100;marks.forEach(function(x){if(pc>=x-1&&!hit[x]){hit[x]=1;log('Geral','leu '+x+'%');}});},{passive:true});
+  var names={trailer:'Trailer',gancho:'Gancho',estreia:'Estreia ou Live',links:'Links',aula:'Aula 4',missoes:'Missões'};
+  if('IntersectionObserver' in window){var seen={};var io=new IntersectionObserver(function(es){es.forEach(function(e){var id=e.target.id;if(e.isIntersecting&&!seen[id]){seen[id]=1;log(names[id],'viu');}});},{threshold:.35});
+    Object.keys(names).forEach(function(id){var el=document.getElementById(id);if(el)io.observe(el);});}
+
+  var tries={},qmap=[['skincare','P1 Skincare'],['receita','P2 Receita'],['viagem','P3 Viagem']];
+  document.addEventListener('click',function(ev){var t=ev.target,el;
+    if(el=t.closest('#tlbar button'))return log('Trailer','tocou','Linha do tempo: '+el.getAttribute('aria-label'));
+    if(el=t.closest('#path .crumb'))return log('Trailer','marcou etapa',el.textContent.trim());
+    if(el=t.closest('#htabs .tab'))return log('Gancho','tocou',el.textContent.trim());
+    if(el=t.closest('#sw button'))return log('Estreia ou Live','escolheu',el.textContent.trim());
+    if(el=t.closest('#ideas .idea'))return log('Estreia ou Live','escolheu ideia',el.textContent.trim());
+    if(el=t.closest('.vtab'))return log('Aula 4','tocou',el.textContent.trim());
+    if(el=t.closest('.links a'))return log('Links','clicou',(el.querySelector('b')||el).textContent.trim());
+    if(el=t.closest('a.btn[href*="eventsonair"]'))return log('Aulas','clicou','Assistir às aulas');
+    if(el=t.closest('.opt')){var s=(document.getElementById('situ').textContent||'').toLowerCase(),qid='Outra';qmap.forEach(function(m){if(s.indexOf(m[0])>-1)qid=m[1];});
+      tries[qid]=(tries[qid]||0)+1;return log('Quiz gancho','respondeu',qid,el.textContent.trim(),el.classList.contains('ok')?'Sim':'Não',tries[qid]);}
+  });
+  document.addEventListener('change',function(ev){var t=ev.target;if(!t.matches||!t.matches('input.ck'))return;
+    var sec=t.closest('#aulas')?'Aulas':(t.closest('#checks')?'Missões':'Outro');var lab=((t.nextElementSibling&&t.nextElementSibling.firstChild)||t).textContent.replace(/\s+/g,' ').trim();
+    log(sec,t.checked?'marcou':'desmarcou',lab);});
+})();
+</script>
+</body>
+</html>
