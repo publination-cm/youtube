@@ -38,6 +38,11 @@ button{font:inherit;color:inherit;cursor:pointer}
 .brand small{font-weight:500;color:var(--ink2);font-size:.8rem}
 .navbtn{border:1px solid var(--line);background:var(--white);border-radius:999px;padding:8px 16px;font-weight:700;font-size:.85rem;text-decoration:none;color:var(--ink);white-space:nowrap}
 .bar i{display:block;height:3px;width:0;background:var(--red)}
+.navl{display:flex;align-items:center;gap:12px;min-width:0}
+.home{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--white);border-radius:999px;padding:7px 12px;font-weight:700;font-size:.85rem;text-decoration:none;color:var(--ink);white-space:nowrap}
+.home svg{width:16px;height:16px;fill:var(--red)}
+.home:hover{border-color:var(--ink)}
+@media (max-width:400px){.home span{display:none}.home{padding:8px}}
 
 .pill{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:7px 14px;font-size:.84rem;font-weight:700;width:fit-content}
 .pill.soft{background:var(--red-soft);color:#CC0000}
@@ -69,6 +74,11 @@ section{padding-block:72px;scroll-margin-top:62px}
 .note-s::before{content:"i";flex:0 0 18px;height:18px;border-radius:50%;background:var(--ink2);color:#fff;font-weight:900;font-size:.68rem;display:grid;place-items:center;transform:translateY(3px)}
 .dark .note-s{color:var(--on-dark2)}.dark .note-s::before{background:var(--on-dark2);color:var(--dark)}
 
+/* regra da hashtag */
+.tagrule{margin:0;background:var(--red);color:#fff;border-radius:999px;padding:12px 20px;font-weight:700;font-size:1.02rem;width:fit-content;max-width:100%;line-height:1.35}
+.tagrule b{font-weight:900}
+@media (max-width:560px){.tagrule{border-radius:22px}}
+
 /* sumário da semana */
 .toc{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
 .toc a{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;text-decoration:none;color:var(--ink);padding:14px 6px;border-radius:16px;transition:background .2s}
@@ -76,7 +86,6 @@ section{padding-block:72px;scroll-margin-top:62px}
 .toc .ic{width:62px;height:62px;border-radius:50%;background:var(--red-soft);display:grid;place-items:center}
 .toc .ic .emo{width:36px;height:36px;vertical-align:0}
 .toc b{font-size:.9rem;line-height:1.2}
-.toc small{font-size:.72rem;color:var(--ink2);font-weight:700;letter-spacing:.06em}
 
 /* etapas tocáveis (passo a passo) */
 .path{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
@@ -188,7 +197,8 @@ html{scroll-behavior:smooth}
 <body>
 <nav class="nav">
   <div class="in">
-    <span class="brand"><span>Criadoras <span class="r">em Pauta</span></span><small>Female Creators Acceleration Program</small></span>
+    <span class="navl"><a class="home" href="../../" aria-label="Voltar para o início"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.2 12 4l9 7.2V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg><span>Início</span></a>
+    <span class="brand"><span>Criadoras <span class="r">em Pauta</span></span><small>Female Creators Acceleration Program</small></span></span>
     <a class="navbtn" href="https://program.bandof.com/youtube-female-creators-guia" target="_blank" rel="noopener">Ver guia</a>
   </div>
   <div class="bar" aria-hidden="true"><i id="prog"></i></div>
@@ -196,14 +206,15 @@ html{scroll-behavior:smooth}
 
 <section class="hero">
   <div class="in stack">
-    <span class="pill soft dot">Newsletter do programa · Edição #1 · 23 a 27/11</span>
+    <span class="pill soft dot">Newsletter do programa · Edição #1</span>
     <h1>Sua dose semanal<br><span class="r">de YouTube</span></h1>
-    <p class="sub">Primeira vez lendo uma newsletter? É simples: toda semana a gente junta aqui as dicas do grupo de Avisos, num lugar só, pra você explorar no seu tempo.</p>
-    <p class="note"><span><b>Os pontos que aparecem aqui são só pra você saber quanto vale cada tarefa.</b> Marcar ou tocar nesta newsletter não soma nada no seu placar. Os pontos entram quando você faz a tarefa no YouTube, e você acompanha tudo no app Bandof.</span></p>
+    <p class="sub">Primeira vez lendo uma newsletter? É simples: toda semana a gente junta aqui as dicas do grupo de Avisos, num lugar só, para você explorar no seu tempo.</p>
+    <p class="note"><span><b>Os pontos que aparecem aqui são só para você saber quanto vale cada tarefa.</b> Marcar ou tocar nesta newsletter não soma nada no seu placar. Os pontos entram quando você faz a tarefa no YouTube, e você acompanha tudo no app Bandof.</span></p>
+    <p class="tagrule"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Fire/3D/fire_3d.png" alt=""> Sem a <b>#YouTubeFemaleCreators</b> na descrição, o vídeo não conta ponto.</p>
     <div class="chips">
       <span class="pill line"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Calendar/3D/calendar_3d.png" alt=""> Toda semana</span>
       <span class="pill line"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Stopwatch/3D/stopwatch_3d.png" alt=""> 5 minutos</span>
-      <span class="pill line"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Mobile%20phone/3D/mobile_phone_3d.png" alt=""> Toque pra explorar</span>
+      <span class="pill line"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Mobile%20phone/3D/mobile_phone_3d.png" alt=""> Toque para explorar</span>
     </div>
   </div>
 </section>
@@ -212,10 +223,10 @@ html{scroll-behavior:smooth}
   <div class="in stack" style="gap:14px">
     <span class="kick">Nesta edição</span>
     <nav class="toc" aria-label="Temas da semana">
-      <a href="#trailer"><span class="ic"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Bullseye/3D/bullseye_3d.png" alt=""></span><small>24/11</small><b>Trailer do canal</b></a>
-      <a href="#gancho"><span class="ic"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Fire/3D/fire_3d.png" alt=""></span><small>25/11</small><b>Gancho</b></a>
-      <a href="#estreia"><span class="ic"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Party%20popper/3D/party_popper_3d.png" alt=""></span><small>26/11</small><b>Estreia ou Live</b></a>
-      <a href="#links"><span class="ic"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Books/3D/books_3d.png" alt=""></span><small>23/11</small><b>Links úteis</b></a>
+      <a href="#trailer"><span class="ic"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Bullseye/3D/bullseye_3d.png" alt=""></span><b>Trailer do canal</b></a>
+      <a href="#gancho"><span class="ic"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Fire/3D/fire_3d.png" alt=""></span><b>Gancho</b></a>
+      <a href="#estreia"><span class="ic"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Party%20popper/3D/party_popper_3d.png" alt=""></span><b>Estreia ou Live</b></a>
+      <a href="#links"><span class="ic"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Books/3D/books_3d.png" alt=""></span><b>Links úteis</b></a>
     </nav>
   </div>
 </section>
@@ -225,7 +236,7 @@ html{scroll-behavior:smooth}
   <div class="in stack">
     <span class="kick">Dica 1 · Trailer do canal</span>
     <h2>Seu cartão de visitas<br><span class="r">no YouTube</span></h2>
-    <p class="sub">O trailer aparece no topo do canal só pra quem ainda não é inscrito. Não passa anúncio e, depois de assistido, não aparece mais pra pessoa.</p>
+    <p class="sub">O trailer aparece no topo do canal só para quem ainda não é inscrito. Não passa anúncio e, depois de assistido, não aparece mais para pessoa.</p>
 
     <h3>Monte o seu em até 1 minuto</h3>
     <p class="muted">Toque em cada parte da linha do tempo:</p>
@@ -240,7 +251,7 @@ html{scroll-behavior:smooth}
       <div class="tlticks"><span>0s</span><span>30s</span><span>1min</span></div>
     </div>
     <div class="tlread" aria-live="polite"><b id="tlt"></b><span id="tld" class="muted"></span></div>
-    <p class="muted"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Thought%20balloon/3D/thought_balloon_3d.png" alt=""> Não precisa gravar do zero: dá pra usar um vídeo longo que já represente bem você.</p>
+    <p class="muted"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Thought%20balloon/3D/thought_balloon_3d.png" alt=""> Não precisa gravar do zero: dá para usar um vídeo longo que já represente bem você.</p>
 
     <h3>Coloque no canal (pelo computador)</h3>
     <p class="muted">Toque em cada etapa conforme for fazendo:</p>
@@ -264,7 +275,7 @@ html{scroll-behavior:smooth}
   <div class="in stack">
     <span class="kick">Dica 2 · Gancho</span>
     <h2>Os primeiros segundos<br><span class="r">decidem tudo</span></h2>
-    <p class="sub">Gancho é a frase, pergunta ou cena do começo que faz a pessoa querer ficar. Quanto mais tempo assistem, mais o YouTube mostra seu vídeo pra mais gente.</p>
+    <p class="sub">Gancho é a frase, pergunta ou cena do começo que faz a pessoa querer ficar. Quanto mais tempo assistem, mais o YouTube mostra seu vídeo para mais gente.</p>
     <div class="tabs" id="htabs" role="group" aria-label="Tipos de gancho">
       <button class="tab" data-k="0" aria-pressed="true">Pergunta</button>
       <button class="tab" data-k="1" aria-pressed="false">Curiosidade</button>
@@ -274,7 +285,7 @@ html{scroll-behavior:smooth}
     <p class="quote" id="hquote" aria-live="polite"></p>
     <div class="vs">
       <div class="stack" style="gap:8px"><span class="kick" style="color:var(--ink2)">Evite</span><p class="no">"Oi gente, tudo bem? Hoje eu vou..."</p></div>
-      <div class="stack" style="gap:8px"><span class="kick">Prefira</span><p class="yes">Vá direto ao ponto e guarde a apresentação pra depois do gancho.</p></div>
+      <div class="stack" style="gap:8px"><span class="kick">Prefira</span><p class="yes">Vá direto ao ponto e guarde a apresentação para depois do gancho.</p></div>
     </div>
   </div>
 </section>
@@ -302,7 +313,7 @@ html{scroll-behavior:smooth}
       <button data-k="l" aria-pressed="false">Live</button>
     </div>
     <div id="swE" class="stack" style="gap:14px">
-      <p>Seu vídeo gravado vira um evento, com contagem regressiva e chat ao vivo pra conversar com o público enquanto ele assiste.</p>
+      <p>Seu vídeo gravado vira um evento, com contagem regressiva e chat ao vivo para conversar com o público enquanto ele assiste.</p>
       <ol class="steps">
         <li><span>YouTube Studio › <b>Criar</b> › <b>Enviar vídeos</b></span></li>
         <li><span>Em <b>Visibilidade</b>, escolha <b>Programar</b></span></li>
@@ -332,16 +343,16 @@ html{scroll-behavior:smooth}
 <section id="links">
   <div class="in stack">
     <span class="kick">Dica 4 · Links úteis</span>
-    <h2>Salve pra<br><span class="r">consultar sempre</span></h2>
+    <h2>Salve para<br><span class="r">consultar sempre</span></h2>
     <ul class="links">
       <li><a href="https://studio.youtube.com" target="_blank" rel="noopener"><span><b>YouTube Studio</b><br><span>Onde você edita, analisa e configura tudo</span></span></a></li>
       <li><a href="https://support.google.com/youtube/?hl=pt-BR" target="_blank" rel="noopener"><span><b>Central de Ajuda</b><br><span>Busque qualquer dúvida</span></span></a></li>
       <li><a href="https://support.google.com/youtube/community?hl=pt-BR" target="_blank" rel="noopener"><span><b>Comunidade de Ajuda</b><br><span>Fórum com criadores e especialistas</span></span></a></li>
       <li><a href="https://www.youtube.com/intl/pt-BR/creators/" target="_blank" rel="noopener"><span><b>YouTube Criadores</b><br><span>Dicas, guias e novidades oficiais</span></span></a></li>
-      <li><a href="https://www.youtube.com/intl/pt-BR/creators/how-things-work/getting-started/" target="_blank" rel="noopener"><span><b>Primeiros passos</b><br><span>Pra começar do jeito certo</span></span></a></li>
-      <li><a href="https://www.youtube.com/verify" target="_blank" rel="noopener"><span><b>Ativar recursos avançados</b><br><span>Necessário pro teste A/B de título e miniatura</span></span></a></li>
-      <li><a href="https://support.google.com/youtube/answer/72851?hl=pt-BR" target="_blank" rel="noopener"><span><b>Requisitos do Programa de Parcerias</b><br><span>O que precisa pra monetizar</span></span></a></li>
-      <li><a href="https://www.youtube.com/intl/pt-BR/creators/partner-program/shopping" target="_blank" rel="noopener"><span><b>YouTube Shopping</b><br><span>Como funciona pra criadores</span></span></a></li>
+      <li><a href="https://www.youtube.com/intl/pt-BR/creators/how-things-work/getting-started/" target="_blank" rel="noopener"><span><b>Primeiros passos</b><br><span>Para começar do jeito certo</span></span></a></li>
+      <li><a href="https://www.youtube.com/verify" target="_blank" rel="noopener"><span><b>Ativar recursos avançados</b><br><span>Necessário para o teste A/B de título e miniatura</span></span></a></li>
+      <li><a href="https://support.google.com/youtube/answer/72851?hl=pt-BR" target="_blank" rel="noopener"><span><b>Requisitos do Programa de Parcerias</b><br><span>O que precisa para monetizar</span></span></a></li>
+      <li><a href="https://www.youtube.com/intl/pt-BR/creators/partner-program/shopping" target="_blank" rel="noopener"><span><b>YouTube Shopping</b><br><span>Como funciona para criadores</span></span></a></li>
       <li><a href="https://blog.youtube/intl/pt-br/" target="_blank" rel="noopener"><span><b>Blog do YouTube Brasil</b><br><span>Lançamentos e novidades</span></span></a></li>
     </ul>
   </div>
@@ -352,9 +363,9 @@ html{scroll-behavior:smooth}
   <div class="in stack">
     <span class="pill green">● Aula 4 disponível</span>
     <h2>Aula nova:<br><span class="r">YouTube Analytics</span></h2>
-    <p class="sub">Um gostinho do tema. Cada bolinha é uma pessoa. Toque nas etapas:</p>
+    <p class="sub">Um gostinho do tema. Cada bolinha é uma vez que a sua miniatura apareceu. Toque nas etapas:</p>
     <div class="tabs" role="group" aria-label="Etapas">
-      <button class="vtab" data-k="imp" aria-pressed="true">1. Viram</button>
+      <button class="vtab" data-k="imp" aria-pressed="true">1. Apareceu</button>
       <button class="vtab" data-k="ctr" aria-pressed="false">2. Clicaram</button>
       <button class="vtab" data-k="ret" aria-pressed="false">3. Ficaram</button>
       <button class="vtab" data-k="src" aria-pressed="false">4. De onde vieram</button>
@@ -374,7 +385,7 @@ html{scroll-behavior:smooth}
     </div>
     <p class="muted" style="font-size:.9rem">Números de exemplo. Os seus ficam no YouTube Studio, em <b style="color:#fff">Análises</b>. Na aula, o time do YouTube mostra como ler cada um.</p>
     <h3 style="margin-top:12px">Já assistiu às masterclasses?</h3>
-    <p class="sub">Cada aula concluída vale 50 pontos no programa. Marque aqui as que você já viu, só pra se organizar:</p>
+    <p class="sub">Cada aula concluída vale 50 pontos no programa. Marque aqui as que você já viu, só para se organizar:</p>
     <p class="note-s"><span>Marcar aqui não soma pontos. Eles contam quando você conclui a aula, e aparecem no app Bandof.</span></p>
     <ul class="aulas" id="aulas">
       <li><label><input class="ck" type="checkbox" id="a1"><span>1. Construa um canal de sucesso</span><small class="pts">vale 50 pts</small></label></li>
@@ -392,7 +403,8 @@ html{scroll-behavior:smooth}
   <div class="in stack">
     <span class="kick">Missões da semana</span>
     <h2>Sua lista<br><span class="r">da semana</span></h2>
-    <p class="note"><span><b>Os pontos que aparecem aqui são só pra você saber quanto vale cada tarefa.</b> Marcar ou tocar nesta newsletter não soma nada no seu placar. Os pontos entram quando você faz a tarefa no YouTube, e você acompanha tudo no app Bandof.</span></p>
+    <p class="note"><span><b>Os pontos que aparecem aqui são só para você saber quanto vale cada tarefa.</b> Marcar ou tocar nesta newsletter não soma nada no seu placar. Os pontos entram quando você faz a tarefa no YouTube, e você acompanha tudo no app Bandof.</span></p>
+    <p class="tagrule"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Fire/3D/fire_3d.png" alt=""> Sem a <b>#YouTubeFemaleCreators</b> na descrição, o vídeo não conta ponto.</p>
     <div class="chal">
       <svg class="ring" viewBox="0 0 120 120" role="img" aria-label="Progresso das missões">
         <circle class="bg" cx="60" cy="60" r="50"/>
@@ -412,10 +424,11 @@ html{scroll-behavior:smooth}
 
 <footer>
   <div class="in">
-    <span class="pill soft">Lembrete: #YouTubeFemaleCreators na descrição, sempre</span>
-    <p>Sem a hashtag, o vídeo não conta ponto. Dúvidas? Veja o <a href="https://program.bandof.com/youtube-female-creators-guia" target="_blank" rel="noopener">guia do programa</a> ou chame a gente no bate-papo.</p>
+    <p class="tagrule"><img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Fire/3D/fire_3d.png" alt=""> Sem a <b>#YouTubeFemaleCreators</b> na descrição, o vídeo não conta ponto.</p>
+    <p>Dúvidas? Veja o <a href="https://program.bandof.com/youtube-female-creators-guia" target="_blank" rel="noopener">guia do programa</a> ou chame a gente no bate-papo.</p>
+    <p><a href="../../">Ver todas as edições</a></p>
     <p>Até a próxima edição! <img class="emo" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Red%20heart/3D/red_heart_3d.png" alt=""></p>
-    <p style="font-size:.8rem">Pra melhorar a newsletter, registramos de forma anônima como ela é usada (toques e respostas). Não coletamos nome, e-mail nem telefone.</p>
+    <p style="font-size:.8rem">Para melhorar a newsletter, registramos de forma anônima como ela é usada (toques e respostas). Não coletamos nome, e-mail nem telefone.</p>
   </div>
 </footer>
 
@@ -435,7 +448,7 @@ html{scroll-behavior:smooth}
     ['Quem é você','Seu nome e o que você faz, em uma frase.'],
     ['Sobre o que é o canal','Os assuntos que a pessoa vai encontrar por aqui.'],
     ['Frequência','Quando sai vídeo novo. Ex.: toda terça e quinta.'],
-    ['Convite','"Se inscreve pra não perder o próximo!"']
+    ['Convite','"Inscreva-se para não perder o próximo!"']
   ];
   var tlb=[].slice.call(document.querySelectorAll('#tlbar button'));
   function tl(i){tlb.forEach(function(b,k){b.setAttribute('aria-pressed',k===i?'true':'false');});document.getElementById('tlt').textContent=(i+1)+'. '+TL[i][0];document.getElementById('tld').textContent=TL[i][1];}
@@ -444,7 +457,7 @@ html{scroll-behavior:smooth}
   // trailer: caminho no Studio
   var cr=[].slice.call(document.querySelectorAll('#path .crumb')),pn=document.getElementById('pathnote');
   cr.forEach(function(b,i){b.addEventListener('click',function(){cr.forEach(function(x,k){x.classList.toggle('done',k<=i);});
-    pn.innerHTML=i===cr.length-1?em('party')+' Trailer publicado! Um passo a menos pro Canal Pronto.':'Etapa '+(i+1)+' de '+cr.length+'. Próxima: <b>'+cr[i+1].textContent+'</b>';});});
+    pn.innerHTML=i===cr.length-1?em('party')+' Trailer publicado! Um passo a menos para o Canal Pronto.':'Etapa '+(i+1)+' de '+cr.length+'. Próxima: <b>'+cr[i+1].textContent+'</b>';});});
 
   // ganchos
   var H=['Você também sente que nunca sabe o que vestir?','Eu não esperava que isso fosse dar tão certo...','Nesse vídeo eu vou te mostrar 3 jeitos de...','(mostre o antes e depois logo de cara)'];
@@ -454,8 +467,8 @@ html{scroll-behavior:smooth}
 
   // quiz de gancho
   var Q=[
-    {s:'Vídeo de skincare. Qual começo segura mais?',o:['"Oi gente, tudo bem? Hoje eu vou falar de pele..."','"Esse produto de 20 reais mudou minha pele em uma semana."','"Antes de começar, já se inscreve no canal!"'],r:1,f:'Isso! Curiosidade e resultado logo de cara.'},
-    {s:'Vídeo de receita. Qual começo segura mais?',o:['Mostrar o bolo pronto sendo cortado','Contar a história da receita','Listar todos os ingredientes'],r:0,f:'Boa! Resultado primeiro: a pessoa fica pra ver como chegar lá.'},
+    {s:'Vídeo de skincare. Qual começo segura mais?',o:['"Oi gente, tudo bem? Hoje eu vou falar de pele..."','"Testei 3 protetores baratinhos e um me surpreendeu."','"Antes de começar, já se inscreve no canal!"'],r:1,f:'Isso! Curiosidade logo de cara: a pessoa fica para saber qual foi.'},
+    {s:'Vídeo de receita. Qual começo segura mais?',o:['Mostrar o bolo pronto sendo cortado','Contar a história da receita','Listar todos os ingredientes'],r:0,f:'Boa! Resultado primeiro: a pessoa fica para ver como chegar lá.'},
     {s:'Vídeo de dicas de viagem. Qual começo segura mais?',o:['"Bom dia, pessoal!"','"Hoje o vídeo vai ser longo..."','"3 erros que fazem você gastar o dobro na viagem."'],r:2,f:'Exato! Promessa clara do que a pessoa vai ganhar.'}
   ];
   var i=0,situ=document.getElementById('situ'),opts=document.getElementById('opts'),fb=document.getElementById('fb'),next=document.getElementById('next'),dots=document.getElementById('dots');
@@ -479,9 +492,9 @@ html{scroll-behavior:smooth}
   var D=[].slice.call(viz.children);
   var click=[3,17,42,58,77,91,104,123,139,150,166,171,183,190,9,64], stay=[3,42,58,91,123,150,171,190,64,104];
   var V={
-    imp:['200','pessoas viram a sua miniatura. Isso são as impressões: o tamanho da sua vitrine.',''],
-    ctr:['8%','clicaram. Essa é a taxa de cliques. Quem decide aqui é o título e a miniatura.','Pouca gente clicando? Teste outra capa ou outro título.'],
-    ret:['10','assistiram até a metade. Isso é a retenção. Quem decide aqui é o gancho.','Muita gente saindo no começo? Volte na dica do gancho!'],
+    imp:['200','Sua miniatura apareceu 200 vezes. Essas são as impressões: o tamanho da sua vitrine.',''],
+    ctr:['8%','das vezes que ela apareceu viraram clique. Essa é a taxa de cliques. Quem decide aqui é o título e a miniatura.','Pouca gente clicando? Teste outra capa ou outro título.'],
+    ret:['10','pessoas assistiram até a metade. Isso é a retenção. Quem decide aqui é o gancho.','Muita gente saindo no começo? Volte na dica do gancho!'],
     src:['3','caminhos trouxeram essas pessoas. São as fontes de tráfego.','Muita gente vindo da busca? Capriche nas palavras do título.']
   };
   var vt=[].slice.call(document.querySelectorAll('.vtab'));
